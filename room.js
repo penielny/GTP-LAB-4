@@ -135,5 +135,7 @@ addRoomFormRef.addEventListener('submit', async (e) => {
 
     rooms.push(new Room(data.name, data.coldPreset, data.warmPreset, data.image))
     updateUiChnages()
+    addRoomFormRef.reset()
+    previewContainerRef.style.backgroundImage = ""
     modalRef.click()
 })
