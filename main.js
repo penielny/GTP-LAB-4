@@ -171,6 +171,7 @@ const setOverlay = (room) => {
 // Set svg accordingly
 const svgPoint = document.querySelector(".point");
 const angleOffset = 86;
+
 const calculatePointPosition = (currTemp) => {
   const normalizedTemp = (currTemp - 10) / (32 - 10);
   const angle = normalizedTemp * 180 + angleOffset;
@@ -243,12 +244,25 @@ roomSelect.addEventListener("change", function () {
 const defaultSettings = document.querySelector(".default-settings");
 defaultSettings.addEventListener("click", function (e) {
 
-  if (e.target.id == "warm" || e.target.parentNode.id == "warm") {
+  let room = rooms.filter((room)=>room.name == selectedRoom)[0]
 
+  if (e.target.id == "warm" || e.target.parentNode.id == "warm") {
+    room.currTemp = room.warmPreset
   }
   if (e.target.id == "cool" || e.target.parentNode.id == "cool") {
-
+    room.currTemp = room.coldPreset
   }
+
+
+  setIndicatorPoint(room.currTemp);
+  currentTemp.textContent = `${room.currTemp}°`;
+
+  generateRooms();
+
+  setOverlay(room);
+
+  warmBtn.style.backgroundColor = "#d9d9d9";
+  coolBtn.style.backgroundColor = "#d9d9d9";
 
 });
 
