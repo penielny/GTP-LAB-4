@@ -210,6 +210,7 @@ document.querySelector(".currentTemp").innerText = `${rooms[0].currTemp}°`;
 renderRoomDropDown()
 
 function renderRoomDropDown (){
+  roomSelect.innerHTML = ``;
   rooms.forEach((room) => {
     const option = document.createElement("option");
     // FIX: changed vlaue from room to room.name
@@ -289,7 +290,7 @@ function updateUiChnages() {
 
   setOverlay(room);
 
-  renderRoomDropDown
+  renderRoomDropDown()
 
   warmBtn.style.backgroundColor = "#d9d9d9";
   coolBtn.style.backgroundColor = "#d9d9d9";
