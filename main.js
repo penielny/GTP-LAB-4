@@ -206,13 +206,18 @@ setInitialOverlay();
 
 document.querySelector(".currentTemp").innerText = `${rooms[0].currTemp}°`;
 // Add new options from rooms array
-rooms.forEach((room) => {
-  const option = document.createElement("option");
-  // FIX: changed vlaue from room to room.name
-  option.value = room.name;
-  option.textContent = room.name;
-  roomSelect.appendChild(option);
-});
+
+renderRoomDropDown()
+
+function renderRoomDropDown (){
+  rooms.forEach((room) => {
+    const option = document.createElement("option");
+    // FIX: changed vlaue from room to room.name
+    option.value = room.name;
+    option.textContent = room.name;
+    roomSelect.appendChild(option);
+  });
+}
 
 // Set current temperature to currently selected room
 
@@ -275,12 +280,16 @@ function updateUiChnages() {
 
   let room = rooms.filter((room) => room.name == selectedRoom)[0]
 
+  setSelectedRoom(room.name)
+
   setIndicatorPoint(room.currTemp);
   currentTemp.textContent = `${room.currTemp}°`;
 
   generateRooms();
 
   setOverlay(room);
+
+  renderRoomDropDown
 
   warmBtn.style.backgroundColor = "#d9d9d9";
   coolBtn.style.backgroundColor = "#d9d9d9";
