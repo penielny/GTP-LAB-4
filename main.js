@@ -431,6 +431,7 @@ const generateRooms = () => {
 
   roomsControlContainer.innerHTML = roomsHTML;
 };
+
 const displayTime = (room) => {
   return `
       <div class="time-display">

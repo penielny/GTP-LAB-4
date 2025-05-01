@@ -4,7 +4,7 @@ const addRoomFormRef = document.getElementById('add-room-form');
 const modalRef = document.querySelector('.add-room-modal');
 const toggleAddRoomButtonRef = document.querySelector('.add-room-toggle')
 const modalContentRef = document.querySelector('.modal-content-container');
-
+const switchAllAccButtonRef = document.getElementById('switch-all-button');
 
 class Room {
 
@@ -44,8 +44,6 @@ class Room {
             : (this.airConditionerOn = true);
     }
 }
-
-
 
 
 modalRef.addEventListener('click', () => {
@@ -138,4 +136,18 @@ addRoomFormRef.addEventListener('submit', async (e) => {
     addRoomFormRef.reset()
     previewContainerRef.style.backgroundImage = ""
     modalRef.click()
+})
+
+
+// on all acc
+switchAllAccButtonRef.addEventListener('click',(e)=>{
+
+    rooms.forEach(room =>{
+        room.toggleAircon()
+    })
+
+    switchAllAccButtonRef.classList.toggle('powerOn')
+
+    updateUiChnages()
+
 })
