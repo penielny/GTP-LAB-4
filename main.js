@@ -1,5 +1,6 @@
 // Room objects
-const rooms = [
+// FIX: change rooms array from const to var
+var rooms = [
   {
     name: "Living Room",
     currTemp: 32,
@@ -195,7 +196,7 @@ const roomSelect = document.getElementById("rooms");
 
 const currentTemp = document.getElementById("temp");
 
-// FIX change let to var
+// FIX: changed let to var
 var selectedRoom = rooms[0].name;
 
 // Set default temperature
@@ -242,9 +243,10 @@ roomSelect.addEventListener("change", function () {
 
 // Set preset temperatures
 const defaultSettings = document.querySelector(".default-settings");
+
 defaultSettings.addEventListener("click", function (e) {
 
-  let room = rooms.filter((room)=>room.name == selectedRoom)[0]
+  let room = rooms.filter((room) => room.name == selectedRoom)[0]
 
   if (e.target.id == "warm" || e.target.parentNode.id == "warm") {
     room.currTemp = room.warmPreset
@@ -264,7 +266,27 @@ defaultSettings.addEventListener("click", function (e) {
   warmBtn.style.backgroundColor = "#d9d9d9";
   coolBtn.style.backgroundColor = "#d9d9d9";
 
+  document.querySelector(".currentTemp").innerText = `${room.currTemp}°`;
+
 });
+
+// function to update ui changes
+function updateUiChnages() {
+
+  let room = rooms.filter((room) => room.name == selectedRoom)[0]
+
+  setIndicatorPoint(room.currTemp);
+  currentTemp.textContent = `${room.currTemp}°`;
+
+  generateRooms();
+
+  setOverlay(room);
+
+  warmBtn.style.backgroundColor = "#d9d9d9";
+  coolBtn.style.backgroundColor = "#d9d9d9";
+
+  document.querySelector(".currentTemp").innerText = `${room.currTemp}°`;
+}
 
 // Increase and decrease temperature
 document.getElementById("increase").addEventListener("click", () => {
