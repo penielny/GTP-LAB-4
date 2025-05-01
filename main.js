@@ -6,9 +6,10 @@ var rooms = [
     currTemp: 32,
     coldPreset: 20,
     warmPreset: 32,
+    manualOverride:false,
     image: "./assets/living-room.jpg",
     airConditionerOn: false,
-    startTime: '16:30',
+    startTime: '19:44',
     endTime: '20:00',
 
     setCurrTemp(temp) {
@@ -41,9 +42,10 @@ var rooms = [
     currTemp: 29,
     coldPreset: 20,
     warmPreset: 32,
+    manualOverride:false,
     image: "./assets/kitchen.jpg",
     airConditionerOn: false,
-    startTime: '16:30',
+    startTime: '19:45',
     endTime: '20:00',
 
     setCurrTemp(temp) {
@@ -78,6 +80,7 @@ var rooms = [
     warmPreset: 32,
     image: "./assets/bathroom.jpg",
     airConditionerOn: false,
+    manualOverride:false,
     startTime: '16:30',
     endTime: '20:00',
 
@@ -111,6 +114,7 @@ var rooms = [
     currTemp: 31,
     coldPreset: 20,
     warmPreset: 32,
+    manualOverride:false,
     image: "./assets/bedroom.jpg",
     airConditionerOn: false,
     startTime: '16:30',
@@ -209,7 +213,7 @@ document.querySelector(".currentTemp").innerText = `${rooms[0].currTemp}°`;
 
 renderRoomDropDown()
 
-function renderRoomDropDown (){
+function renderRoomDropDown() {
   roomSelect.innerHTML = ``;
   rooms.forEach((room) => {
     const option = document.createElement("option");
@@ -411,20 +415,18 @@ const generateRooms = () => {
 
   rooms.forEach((room) => {
     roomsHTML += `
-    <div class="room-control" id="${room.name}">
+        <div class="room-control" id="${room.name}">
           <div class="top">
             <h3 class="room-name">${room.name} - ${room.currTemp}°</h3>
             <button class="switch">
-              <ion-icon name="power-outline" class="${room.airConditionerOn ? "powerOn" : ""
-      }"></ion-icon>
+              <ion-icon name="power-outline" class="${room.airConditionerOn ? "powerOn" : ""}"></ion-icon>
             </button>
           </div>
 
           ${displayTime(room)}
          
-          <span class="room-status" style="display: ${room.airConditionerOn ? "" : "none"
-      }">${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp
-      }°</span>
+          <span class="room-status" style="display: ${room.airConditionerOn ? "" : "none"}">${room.currTemp <= 24 ? "Cooling room to: " : "Warming room to: "}${room.currTemp}°</span>
+          
         </div>
     `;
   });
@@ -482,6 +484,7 @@ document.querySelector(".rooms-control").addEventListener("click", (e) => {
     const room = rooms.find(
       (room) => room.name === e.target.parentNode.parentNode.id
     );
+    room.manualOverride = true;
     room.toggleAircon();
     generateRooms();
   }

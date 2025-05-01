@@ -5,6 +5,11 @@ const modalRef = document.querySelector('.add-room-modal');
 const toggleAddRoomButtonRef = document.querySelector('.add-room-toggle')
 const modalContentRef = document.querySelector('.modal-content-container');
 const switchAllAccButtonRef = document.getElementById('switch-all-button');
+const presetTimerRef = document.getElementById('presetTimer')
+const presetTimerFormRef = document.getElementById('time-edit-form')
+const savePresetTimerButtonRef = document.querySelector('.time-edit-save-button')
+// keep track of interval to avoid multiple instances
+var intervalRef = null;
 
 class Room {
 
@@ -14,6 +19,7 @@ class Room {
         this.warmPreset = warmPreset;
         this.currTemp = coldPreset;
         this.image = image
+        this.manualOverride = false
         this.airConditionerOn = false;
         this.startTime = '16:30';
         this.endTime = '20:00';
@@ -140,14 +146,75 @@ addRoomFormRef.addEventListener('submit', async (e) => {
 
 
 // on all acc
-switchAllAccButtonRef.addEventListener('click',(e)=>{
+switchAllAccButtonRef.addEventListener('click', (e) => {
 
-    rooms.forEach(room =>{
+    rooms.forEach(room => {
+        room.manualOverride = true
         room.toggleAircon()
+        
+        if (switchAllAccButtonRef.classList.contains('powerOn')) {
+            room.manualOverride = false
+        }
     })
+
 
     switchAllAccButtonRef.classList.toggle('powerOn')
 
     updateUiChnages()
 
 })
+
+// on start run scheduler 
+startAccScheduler()
+
+function startAccScheduler() {
+    if (intervalRef !== null) {
+        clearInterval(intervalRef);
+    }
+
+    acSchedulerId = setInterval(() => {
+        const now = new Date();
+        const currentMinutes = (now.getHours() * 60) + now.getMinutes();
+
+        rooms.forEach(room => {
+            if (room.manualOverride) return;
+            const start = timeToMinutes(room.startTime);
+            const end = timeToMinutes(room.endTime);
+            const shouldBeOn = currentMinutes >= start && currentMinutes < end;
+            if (shouldBeOn && !room.airConditionerOn) {
+                room.toggleAircon()
+            } else if (!shouldBeOn && room.airConditionerOn) {
+                room.toggleAircon()
+            }
+        });
+
+        updateUiChnages()
+    }, 60 * 10000);
+}
+
+// toggle add timer form
+presetTimerRef.addEventListener('click', (e) => {
+
+    presetTimerFormRef.classList.toggle('hidden')
+})
+
+
+savePresetTimerButtonRef.addEventListener('click', (e) => {
+    let startTime = document.getElementById('startTime').value
+    let endTime = document.getElementById('endTime').value
+
+    if (!startTime || !endTime) {
+        alert("please provide valid time")
+        return
+    }
+
+    const room = rooms.find((currRoom) => currRoom.name === selectedRoom);
+    room.startTime = startTime
+    room.endTime = endTime
+
+    updateUiChnages()
+    presetTimerFormRef.classList.toggle('hidden')
+
+    startAccScheduler()
+})
+

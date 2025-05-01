@@ -214,6 +214,27 @@ body {
   letter-spacing: 3px;
 }
 
+.time-edit-save-button{
+  border: none;
+  background-color: var(--cool-blue);
+  color: var(--bg-light);
+  padding: 10px;
+  margin-top: 10px;
+  width: 50%;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.time-edit-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+.time-edit-container > .field-container {
+  width: 100%;
+}
+
 .temperature {
   position: relative;
   /* border: solid 2px pink; */
@@ -296,6 +317,10 @@ svg.point {
 
 .configure {
   margin: 0 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
 .inputs {
@@ -338,7 +363,7 @@ svg.point {
   margin: 10px 0 0 0;
 }
 
-#newPreset {
+#newPreset , #presetTimer {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -352,7 +377,7 @@ svg.point {
   transition: color 0.2s ease-in-out;
 }
 
-#newPreset:hover {
+#newPreset:hover , #presetTimer:hover {
   color: #6b7ff0;
 }
 
@@ -435,6 +460,7 @@ svg.point {
 .room-control {
   padding: 30px 0 30px 0;
   border-bottom: solid 1px #e7e7e7;
+  position: relative;
 }
 
 .room-control:first-child {
@@ -518,6 +544,13 @@ svg.point {
 @media only screen and (max-width: 380px) {
   .container {
     width: 320px;
+  }
+}
+
+/* fixed responsiveness on mobile */
+@media (width <= 640px) {
+  .main-container{
+    flex-direction: column;
   }
 }
 

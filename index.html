@@ -83,6 +83,23 @@
           <button id="newPreset">
             <ion-icon name="cog"></ion-icon>Configure Presets
           </button>
+          <button id="presetTimer">
+            <ion-icon name="stopwatch"></ion-icon>Configure Timer
+          </button>
+        </div>
+
+        <div id="time-edit-form" class="time-edit-container hidden">
+          <div class="field-container">
+            <div class="field">
+              <label for="startTime">Start</label>
+              <input id="startTime" type="time" name="startTime" placeholder="Start Time" />
+            </div>
+            <div class="field">
+              <label for="endTime">End</label>
+              <input id="endTime" type="time" name="endTime"  placeholder="End Time" />
+            </div>
+          </div>
+          <button class="time-edit-save-button">Save</button>
         </div>
 
         <div class="inputs hidden">
