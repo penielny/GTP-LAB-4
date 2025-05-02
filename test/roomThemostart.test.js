@@ -114,18 +114,18 @@ describe("Utility function", () => {
 
         it('0 before start', () => {
             const fakeNow = new Date('2023-01-01T08:00:00');
-            expect(getElapsedBarCount('09:00','10:00',32,fakeNow)).toBe(0);
-          });
-        
-          it('full at end', () => {
+            expect(getElapsedBarCount('09:00', '10:00', 32, fakeNow)).toBe(0);
+        });
+
+        it('full at end', () => {
             const fakeNow = new Date('2023-01-01T10:00:00');
-            expect(getElapsedBarCount('09:00','10:00',32,fakeNow)).toBe(32);
-          });
-        
-          it('half at midpoint', () => {
+            expect(getElapsedBarCount('09:00', '10:00', 32, fakeNow)).toBe(32);
+        });
+
+        it('half at midpoint', () => {
             const fakeNow = new Date('2023-01-01T09:30:00');
-            expect(getElapsedBarCount('09:00','10:00',32,fakeNow)).toBe(16);
-          });
+            expect(getElapsedBarCount('09:00', '10:00', 32, fakeNow)).toBe(16);
+        });
     });
 
 })
@@ -138,13 +138,67 @@ describe("Event handler", () => {
         document.documentElement.innerHTML = html;
     });
 
+    it("opens add room form ", () => {
+        const toggleButton = document.querySelector('.add-room-toggle');
+        const modalRef = document.querySelector('.add-room-modal');
 
-    it('', () => {
-       const roomSelectorRef =  document.getElementById('rooms')
+        toggleButton.addEventListener('click', () => {
+            modalRef.classList.remove('hidden');
+        });
 
+
+        toggleButton.click();
+
+        expect(modalRef.classList.contains('hidden')).toBe(false);
+    })
+
+
+    it("Close add room form ", () => {
+
+        const modalRef = document.querySelector('.add-room-modal');
+
+
+        modalRef.addEventListener('click', () => {
+            modalRef.classList.add('hidden');
+        });
+
+        modalRef.click();
+
+        expect(modalRef.classList.contains('hidden')).toBe(true);
+    })
+
+
+    it("Hides the timer form on click", () => {
+        const modalToggleRef = document.getElementById('presetTimer');
+        const modal = document.getElementById('time-edit-form');
+    
+        // start visible
+        modal.classList.remove('hidden'); 
+    
+        modalToggleRef.addEventListener('click', () => {
+            modal.classList.add('hidden'); 
+        });
+    
+        modalToggleRef.click();
+    
+        expect(modal.classList.contains('hidden')).toBeTruthy();
     });
     
-
-
+    it("Shows the timer form on click", () => {
+        const modalToggleRef = document.getElementById('presetTimer');
+        const modal = document.getElementById('time-edit-form');
+    
+        // start hidden
+        modal.classList.add('hidden');
+    
+        modalToggleRef.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+    
+        modalToggleRef.click();
+    
+        expect(modal.classList.contains('hidden')).toBeFalsy();
+    });
+    
 })
 
