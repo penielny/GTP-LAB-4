@@ -526,8 +526,12 @@ svg.point {
   background-color: #e7e7e7;
 }
 
-.bars .bar:nth-child(n + 1):nth-child(-n + 15) {
+/* .bars .bar:nth-child(n + 1):nth-child(-n + 15) {
   background-color: #ffae33;
+} */
+
+.active {
+  background-color: #ffae33 !important; 
 }
 
 .time {
@@ -548,7 +552,7 @@ svg.point {
 }
 
 /* fixed responsiveness on mobile */
-@media (width <= 640px) {
+@media (width <= 870px) {
   .main-container{
     flex-direction: column;
   }

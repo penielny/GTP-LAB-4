@@ -1,4 +1,4 @@
-( function (global) {
+(function (global) {
     // encode uploaded image to base64 for display purpose
     function imageToBase64(imageFile) {
         return new Promise((resolve, reject) => {
@@ -25,7 +25,7 @@
     // check if current time is within start-end range
     function isWithinTimeRange(start, end) {
         const now = new Date();
-        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        const currentMinutes = (now.getHours() * 60) + now.getMinutes();
         const startMinutes = timeToMinutes(start);
         const endMinutes = timeToMinutes(end);
 
@@ -72,11 +72,28 @@
         }
     }
 
+    function getElapsedBarCount(startTime, endTime, totalBars = 32, now = new Date()) {
+
+        const start = timeToMinutes(startTime);
+        const end = timeToMinutes(endTime);
+        
+        const current = (now.getHours() * 60) + now.getMinutes();
+        const duration = end - start;
+        const elapsed = current - start;
+        const percentage = Math.max(0, Math.min(1, elapsed / duration));
+
+        const bars = Math.floor(percentage * totalBars);
+
+        return bars;
+    }
+
+
     const exportValues = {
         Room,
         isWithinTimeRange,
         timeToMinutes,
-        imageToBase64
+        imageToBase64,
+        getElapsedBarCount
     }
 
     if (typeof window !== 'undefined') {
