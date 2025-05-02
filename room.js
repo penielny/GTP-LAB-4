@@ -1,3 +1,5 @@
+
+
 const imageInputRef = document.getElementById('room-image');
 const previewContainerRef = document.getElementById('uploadPreview');
 const addRoomFormRef = document.getElementById('add-room-form');
@@ -131,7 +133,7 @@ function startAccScheduler() {
         clearInterval(intervalRef);
     }
 
-    acSchedulerId = setInterval(() => {
+    intervalRef = setInterval(() => {
         const now = new Date();
         const currentMinutes = (now.getHours() * 60) + now.getMinutes();
 
@@ -148,7 +150,27 @@ function startAccScheduler() {
         });
 
         updateUiChnages()
-    }, 60 * 10000);
+    }, 10 * 1000);
+}
+
+function updateBarsProgress(room){
+    if (!room.airConditionerOn) return
+    let index_ = rooms.findIndex(room_=>room.name == room_.name)
+
+    let highlightedBars = getElapsedBarCount(room.startTime, room.endTime)
+
+    document.querySelectorAll(`#room-${index_}-bars>.bar`).forEach((bar, index) => {
+        if (index < highlightedBars) {
+          bar.classList.add('active');
+        } else {
+          bar.classList.remove('active');
+        }
+      });
+
+      console.log("highlightedBars",highlightedBars)
+      console.log("start",room.startTime)
+      console.log("end",room.endTime)
+
 }
 
 // toggle add timer form

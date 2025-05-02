@@ -296,6 +296,8 @@ function updateUiChnages() {
 
   renderRoomDropDown()
 
+  updateBarsProgress(room)
+
   warmBtn.style.backgroundColor = "#d9d9d9";
   coolBtn.style.backgroundColor = "#d9d9d9";
 
@@ -435,10 +437,11 @@ const generateRooms = () => {
 };
 
 const displayTime = (room) => {
+  let index_ = rooms.findIndex(room_=>room.name == room_.name)
   return `
       <div class="time-display">
         <span class="time">${room.startTime}</span>
-        <div class="bars">
+        <div class="bars" id="room-${index_}-bars">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>

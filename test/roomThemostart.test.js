@@ -1,9 +1,9 @@
 /**
  * @jest-environment jsdom
 */
-const fs =require('fs') 
+const fs = require('fs')
 const { describe } = require("node:test");
-const { imageToBase64, timeToMinutes, isWithinTimeRange, Room } = require("../util");
+const { imageToBase64, timeToMinutes, isWithinTimeRange, Room, getElapsedBarCount } = require("../util");
 
 
 describe("Utility function", () => {
@@ -110,6 +110,24 @@ describe("Utility function", () => {
 
     })
 
+    describe('getElapsedBarCount', () => {
+
+        it('0 before start', () => {
+            const fakeNow = new Date('2023-01-01T08:00:00');
+            expect(getElapsedBarCount('09:00','10:00',32,fakeNow)).toBe(0);
+          });
+        
+          it('full at end', () => {
+            const fakeNow = new Date('2023-01-01T10:00:00');
+            expect(getElapsedBarCount('09:00','10:00',32,fakeNow)).toBe(32);
+          });
+        
+          it('half at midpoint', () => {
+            const fakeNow = new Date('2023-01-01T09:30:00');
+            expect(getElapsedBarCount('09:00','10:00',32,fakeNow)).toBe(16);
+          });
+    });
+
 })
 
 
@@ -118,5 +136,7 @@ describe("Event handler", () => {
         const html = fs.readFileSync('./index.html', 'utf-8');
         document.documentElement.innerHTML = html;
     });
+
+
 })
 
