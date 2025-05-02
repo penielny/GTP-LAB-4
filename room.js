@@ -12,6 +12,7 @@ const presetTimerFormRef = document.getElementById('time-edit-form')
 const savePresetTimerButtonRef = document.querySelector('.time-edit-save-button')
 // keep track of interval to avoid multiple instances
 var intervalRef = null;
+let switchAllState = false;
 
 modalRef.addEventListener('click', () => {
     if (modalRef.classList.contains('animate__fadeInUp')) {
@@ -109,8 +110,14 @@ addRoomFormRef.addEventListener('submit', async (e) => {
 // on all acc
 switchAllAccButtonRef.addEventListener('click', (e) => {
 
+    switchAllState = !switchAllState
+
     rooms.forEach(room => {
         room.manualOverride = true
+
+        if (switchAllState && room.airConditionerOn) {
+            return
+        }
         room.toggleAircon()
         
         if (switchAllAccButtonRef.classList.contains('powerOn')) {
@@ -129,6 +136,7 @@ switchAllAccButtonRef.addEventListener('click', (e) => {
 startAccScheduler()
 
 function startAccScheduler() {
+
     if (intervalRef !== null) {
         clearInterval(intervalRef);
     }

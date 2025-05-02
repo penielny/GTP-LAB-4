@@ -132,10 +132,18 @@ describe("Utility function", () => {
 
 
 describe("Event handler", () => {
+
     beforeAll(() => {
         const html = fs.readFileSync('./index.html', 'utf-8');
         document.documentElement.innerHTML = html;
     });
+
+
+    it('', () => {
+       const roomSelectorRef =  document.getElementById('rooms')
+
+    });
+    
 
 
 })
