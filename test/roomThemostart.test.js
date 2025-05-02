@@ -132,12 +132,11 @@ describe("Utility function", () => {
 
 
 describe("Event handler", () => {
+
     beforeAll(() => {
         const html = fs.readFileSync('./index.html', 'utf-8');
         document.documentElement.innerHTML = html;
     });
-
-
 
     it("opens add room form ", () => {
         const toggleButton = document.querySelector('.add-room-toggle');
@@ -201,6 +200,5 @@ describe("Event handler", () => {
         expect(modal.classList.contains('hidden')).toBeFalsy();
     });
     
-
 })
 
