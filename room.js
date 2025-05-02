@@ -11,47 +11,6 @@ const savePresetTimerButtonRef = document.querySelector('.time-edit-save-button'
 // keep track of interval to avoid multiple instances
 var intervalRef = null;
 
-class Room {
-
-    constructor(name, coldPreset, warmPreset, image) {
-        this.name = name;
-        this.coldPreset = coldPreset;
-        this.warmPreset = warmPreset;
-        this.currTemp = coldPreset;
-        this.image = image
-        this.manualOverride = false
-        this.airConditionerOn = false;
-        this.startTime = '16:30';
-        this.endTime = '20:00';
-    }
-
-    setCurrTemp(temp) {
-        this.currTemp = temp;
-    }
-
-    setColdPreset(newCold) {
-        this.coldPreset = newCold;
-    }
-
-    setWarmPreset(newWarm) {
-        this.warmPreset = newWarm;
-    }
-
-    decreaseTemp() {
-        this.currTemp--;
-    }
-
-    increaseTemp() {
-        this.currTemp++;
-    }
-    toggleAircon() {
-        this.airConditionerOn
-            ? (this.airConditionerOn = false)
-            : (this.airConditionerOn = true);
-    }
-}
-
-
 modalRef.addEventListener('click', () => {
     if (modalRef.classList.contains('animate__fadeInUp')) {
         modalRef.classList.replace('animate__fadeInUp', 'animate__fadeOutDown')
