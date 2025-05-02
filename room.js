@@ -85,7 +85,7 @@ addRoomFormRef.addEventListener('submit', async (e) => {
     }
 
     if (data.coldPreset < 10 || data.coldPreset >= 25 || data.warmPreset < 25 || data.warmPreset > 32) {
-        alert("please make sure cool values are between { } and warn values are between { }")
+        alert("please make sure cool values are between 10 - 25  and warn values are between 26  - 32")
         return;
     }
 
